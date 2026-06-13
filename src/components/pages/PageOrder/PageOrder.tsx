@@ -35,7 +35,14 @@ export default function PageOrder() {
     {
       queryKey: ["order", { id }],
       queryFn: async () => {
-        const res = await axios.get<Order>(`${API_PATHS.order}/order/${id}`);
+        const res = await axios.get<Order>(`${API_PATHS.order}/order/${id}`, {
+          headers: {
+            Authorization: `Basic ${localStorage.getItem(
+              "authorization_token"
+            )}`,
+          },
+        });
+
         return res.data;
       },
     },
