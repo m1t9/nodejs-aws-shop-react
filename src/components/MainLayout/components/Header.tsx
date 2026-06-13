@@ -6,14 +6,17 @@ import IconButton from "@mui/material/IconButton";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
+import Button from "@mui/material/Button";
 import Cart from "~/components/MainLayout/components/Cart";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 import Link from "@mui/material/Link";
+import { isLoggedIn, removeAuthToken } from "~/utils/auth";
 
 export default function Header() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const auth = true;
+  const auth = isLoggedIn();
+  const navigate = useNavigate();
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -78,8 +81,22 @@ export default function Header() {
               >
                 Manage products
               </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  removeAuthToken();
+                  handleClose();
+                  navigate("/", { replace: true });
+                }}
+              >
+                Logout
+              </MenuItem>
             </Menu>
           </div>
+        )}
+        {!auth && (
+          <Button component={RouterLink} to="/login" color="inherit">
+            Login
+          </Button>
         )}
         <Cart />
       </Toolbar>

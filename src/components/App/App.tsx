@@ -1,12 +1,14 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import MainLayout from "~/components/MainLayout/MainLayout";
 import PageProductForm from "~/components/pages/PageProductForm/PageProductForm";
 import PageOrders from "~/components/pages/PageOrders/PageOrders";
 import PageOrder from "~/components/pages/PageOrder/PageOrder";
 import PageProductImport from "~/components/pages/admin/PageProductImport/PageProductImport";
+import PageLogin from "~/components/pages/PageLogin/PageLogin";
 import PageCart from "~/components/pages/PageCart/PageCart";
 import PageProducts from "~/components/pages/PageProducts/PageProducts";
 import { Typography } from "@mui/material";
+import { isLoggedIn } from "~/utils/auth";
 
 function App() {
   return (
@@ -19,6 +21,7 @@ function App() {
           <Route path=":id" element={<PageOrder />} />
         </Route>
         <Route path="admin/products" element={<PageProductImport />} />
+        <Route path="login" element={<PageLogin />} />
         <Route path="admin/product-form">
           <Route index element={<PageProductForm />} />
           <Route path=":id" element={<PageProductForm />} />
